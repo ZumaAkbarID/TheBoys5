@@ -1,6 +1,6 @@
 ## Getting Started
 
-First, run the development server:
+Configure BackEnd: 
 
 ```bash
 composer install
@@ -12,9 +12,14 @@ cp .env.example .env
 ```
 
 ```bash
-php artisan generate:key
+php artisan key:generate
 ```
 
+Configure FrontEnd: 
+```bash
+cd FrontEmd
+npm install
+```
 
 Run the  server:
 
@@ -23,6 +28,7 @@ Run the  server:
 php artisan serve
 
 # run frontEnd vite
+cd FrontEnd
 npm run dev
 ```
 
@@ -30,6 +36,6 @@ npm run dev
 
 Before run the serve, take a look at the following resources:
 
-- [Laravel 11 Documentation](https://laravel.com/) - learn about Laravel features and API.
+- [Laravel 11 Documentation](https://laravel.com/) - Laravel 11.
 - [Composer](https://getcomposer.org/) - Download and Install Composer.
 - [php 8.3.6](https://windows.php.net/downloads/releases/php-8.3.6-nts-Win32-vs16-x64.zip) - PHP 8.3.5 up.
