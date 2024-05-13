@@ -17,7 +17,7 @@ php artisan key:generate
 
 Configure FrontEnd: 
 ```bash
-cd FrontENd
+cd FrontEmd
 npm install
 ```
 
@@ -28,7 +28,7 @@ Run the  server:
 php artisan serve
 
 # run frontEnd vite
-cd FrontENd
+cd FrontEnd
 npm run dev
 ```
 
