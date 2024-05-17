@@ -9,7 +9,7 @@ const StateContent: any = createContext({
 
 export const ContextProvider = (children: any) => {
     const [currentUser, setCurrentUser] = useState<any | null>({});
-    const [userToken, setUserToken] = useState<any | null>(null);
+    const [userToken, setUserToken] = useState<any | null>("");
 
     return (
         <StateContent.Provider
@@ -20,4 +20,4 @@ export const ContextProvider = (children: any) => {
     );
 };
 
-export const userStateContext = () => useContext(StateContent);
+export const useStateContext = () => useContext(StateContent);

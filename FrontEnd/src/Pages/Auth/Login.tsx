@@ -5,7 +5,7 @@ const Login = () => {
     const handleSubmit = () => {};
 
     return (
-        <form action="" className="w-[25rem]">
+        <form action="" className="">
             <Input type="text" name="username" />
             <Input type="password" name="password" />
 

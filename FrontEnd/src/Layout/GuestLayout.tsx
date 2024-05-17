@@ -1,14 +1,16 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useStateContext } from "../Context/ContextProvider";
 
 const GuestLayout = () => {
-    // const {currentUser, currentTokenUser} = userStateContext();
+    const { currentTokenUser }: any = useStateContext();
 
-    // if(!)
-    // <Navigate to={"/dashboard"} />
+    if (currentTokenUser) {
+        return <Navigate to={"/"} />;
+    }
 
     return (
-        <main className="w-full flex items-center justify-center h-screen">
-            <div className="flex flex-col gap-2 border shadow-lg rounded-xl items-center justify-start p-10">
+        <main className="w-full flex items-center justify-center h-screen px-10">
+            <div className="flex flex-col gap-2 border shadow-lg rounded-xl  justify-start py-10 px-5 w-full">
                 <h1 className="text-center text-3xl font-bold">The Boys 5</h1>
                 <div>
                     <Outlet />
