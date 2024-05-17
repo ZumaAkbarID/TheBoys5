@@ -3,7 +3,7 @@ import Button from "../../Fragments/Button";
 
 const Register = () => {
     return (
-        <form action="" className="w-[25rem]">
+        <form action="">
             <Input type="text" name="username" />
             <Input type="email" name="email" />
             <Input type="number" name="number" />
