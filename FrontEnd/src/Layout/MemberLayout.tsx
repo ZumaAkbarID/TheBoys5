@@ -37,7 +37,7 @@ const MemberLayout = () => {
         <>
             {/* HEADER */}
             <div className="flex justify-center items-center fixed w-full z-50 xl:px-7 lg:py-2">
-                <div className="flex justify-between py-4 px-3 items-center w-full z-50 backdrop-blur-sm rounded-b-xl md:bg-gray-800 lg:bg-white xl:bg-pink-500 lg:mx-3 lg:top-2 lg:rounded-2xl lg:shadow-md xl:w-full xl:mx-0">
+                <div className="flex justify-between py-4 px-3 items-center w-full z-50 backdrop-blur-sm rounded-b-xl lg:bg-white lg:mx-3 lg:top-2 lg:rounded-2xl lg:shadow-md xl:w-full xl:mx-0">
                     <div className="hidden lg:flex">
                         <NavLink
                             className="flex items-center justify-center gap-2"
