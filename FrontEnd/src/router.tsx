@@ -28,6 +28,10 @@ const router = createBrowserRouter([
                 element: <MemberLayout />,
                 children: [
                     {
+                        path: "/member",
+                        element: <Navigate to="/member/index" />,
+                    },
+                    {
                         path: "/member/index",
                         element: <Member />,
                     },

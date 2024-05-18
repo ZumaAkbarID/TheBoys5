@@ -22,7 +22,7 @@ const Profile = () => {
 
     return (
         <div className="bg-gray-100 h-screen relative pt-16">
-            <div className="bg-purple-600 h-56 rounded-b-3xl flex justify-center items-center top-0 w-full absolute"></div>
+            <div className="bg-gradient-to-tl from-purple-800 to-purple-600 h-56 rounded-b-3xl flex justify-center items-center top-0 w-full absolute"></div>
 
             {/* BACKGROUND  */}
             <div className="flex rounded-lg flex-col gap-3 w-full">

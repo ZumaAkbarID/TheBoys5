@@ -2,17 +2,18 @@ import { useEffect, useState } from "react";
 
 type tableProps = {
     titles: Array<string>;
-    datas: any;
+    contents: any;
+    height: string;
 };
 
 const Table = (props: tableProps) => {
-    const { titles, datas } = props;
+    const { titles, contents, height } = props;
     const [dataLists, setDataLists] = useState<any>([]);
 
     // fetch data
     useEffect(() => {
-        setDataLists(datas);
-    }, [datas]);
+        setDataLists(contents);
+    }, [contents]);
 
     // console.log(dataLists.length);
     return (
@@ -79,7 +80,9 @@ const Table = (props: tableProps) => {
             {/* VAALIDATION DATA */}
             {dataLists.length === 0 ||
                 (dataLists === 0 && (
-                    <div className="my-28 flex items-center justify-center text-textPrimary">
+                    <div
+                        className={`flex justify-center items-center text-textPrimary h-[${height}]`}
+                    >
                         <h1 className="font-semibold text-xl">
                             TIdak Ada Data
                         </h1>
