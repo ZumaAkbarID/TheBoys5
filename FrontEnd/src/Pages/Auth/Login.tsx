@@ -13,7 +13,7 @@ const Login = () => {
                 <Button text="Login" />
                 <small>
                     Don't have an account?{" "}
-                    <a href="register" className="text-blue-500 underline">
+                    <a href="register" className="text-purple-600 underline">
                         Register Here
                     </a>
                 </small>

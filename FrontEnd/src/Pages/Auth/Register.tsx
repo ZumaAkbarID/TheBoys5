@@ -14,7 +14,7 @@ const Register = () => {
                 <Button text="Register" />
                 <small>
                     Already have an account?{" "}
-                    <a href="login" className="text-blue-500 underline">
+                    <a href="login" className="text-purple-600 underline">
                         Sign in Here
                     </a>
                 </small>
