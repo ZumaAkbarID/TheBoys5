@@ -87,23 +87,25 @@ const MemberLayout = () => {
             <Outlet />
 
             {/* NAV */}
-            <div className="fixed bottom-0 w-full lg:left-3 lg:top-24 lg:w-[10rem] xl:left-7">
-                <div className="relative bg-white flex justify-center items-center py-1 gap-12 rounded-t-3xl shadow-inner md:justify-around md:py-3 lg:flex-col lg:justify-normal lg:rounded-xl lg:px-3 lg:gap-5 lg:shadow-md">
-                    {navList.map((nav, index) => (
-                        <NavLink
-                            to={nav.to}
-                            className={({ isActive }) =>
-                                classNames(
-                                    isActive
-                                        ? `flex items-center justify-center px-2 py-1 rounded-xl hover:text-purple-600 transition ease-in-out duration-300 cursor-pointer flex-col group text-purple-600 bx ${nav.iconAfter} text-2xl lg:flex-row lg:gap-2 lg:justify-start lg:w-full lg:px-4 lg:bg-purple-300 lg:text-white`
-                                        : `flex items-center justify-center px-2 py-1 rounded-xl hover:text-purple-600 transition ease-in-out duration-300 cursor-pointer flex-col group bx ${nav.icon} text-2xl lg:flex-row lg:gap-2 lg:justify-start lg:w-full lg:px-4`
-                                )
-                            }
-                            key={index}
-                        >
-                            <small className="text-sm">{nav.title}</small>
-                        </NavLink>
-                    ))}
+            <div className="flex items-center justify-center">
+                <div className="fixed bottom-0 w-full md:w-3/4 lg:left-3 lg:top-24 lg:w-[10rem] xl:left-7">
+                    <div className="relative bg-white flex justify-center items-center py-1 gap-12 rounded-t-3xl shadow-inner md:justify-around md:py-3 lg:flex-col lg:justify-normal lg:rounded-xl lg:px-3 lg:gap-5 lg:shadow-md">
+                        {navList.map((nav, index) => (
+                            <NavLink
+                                to={nav.to}
+                                className={({ isActive }) =>
+                                    classNames(
+                                        isActive
+                                            ? `flex items-center justify-center px-2 py-1 rounded-xl hover:text-purple-600 transition ease-in-out duration-300 cursor-pointer flex-col group text-purple-600 bx ${nav.iconAfter} text-2xl lg:flex-row lg:gap-2 lg:justify-start lg:w-full lg:px-4 lg:bg-purple-300 lg:text-white`
+                                            : `flex items-center justify-center px-2 py-1 rounded-xl hover:text-purple-600 transition ease-in-out duration-300 cursor-pointer flex-col group bx ${nav.icon} text-2xl lg:flex-row lg:gap-2 lg:justify-start lg:w-full lg:px-4`
+                                    )
+                                }
+                                key={index}
+                            >
+                                <small className="text-sm">{nav.title}</small>
+                            </NavLink>
+                        ))}
+                    </div>
                 </div>
             </div>
             {/* <button className="relative w-5">
