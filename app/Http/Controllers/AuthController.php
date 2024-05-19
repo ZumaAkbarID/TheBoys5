@@ -12,12 +12,15 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
+        dd($data);
 
         $user= User::create([
-            'name' => $data['name'],
+            'username' => $data['username'],
             'email' => $data['email'],
+            'number' => $data['number'],
             'password' => bcrypt($data['password']),
         ]);
+
 
         $token = $user->createToken('main')->plainTextToken;
         return response([
@@ -29,7 +32,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $credentials = $request->validated();
-        $remember = $credentials['remember'] ?? false;
+        $remember = $credentials['remember'] ?? false; 
         unset($credentials['remember']);
 
         if (!auth()->attempt($credentials, $remember)) {
@@ -47,8 +50,9 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        $user = auth()->user();
 
-        $request->user()->currentAccessToken()->delete();
+        $user->currentAccessToken()->delete();
     
         return response([
             'success' => true

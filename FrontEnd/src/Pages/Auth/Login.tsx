@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Input from "../../Components/Input";
 import Button from "../../Fragments/Button";
 
@@ -13,9 +14,9 @@ const Login = () => {
                 <Button text="Login" />
                 <small>
                     Don't have an account?{" "}
-                    <a href="register" className="text-purple-600 underline">
+                    <Link to="/register" className="text-purple-600 underline">
                         Register Here
-                    </a>
+                    </Link>
                 </small>
             </span>
         </form>

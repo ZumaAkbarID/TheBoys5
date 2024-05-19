@@ -7,10 +7,21 @@ const StateContent: any = createContext({
     setUserToken: () => {},
 });
 
-export const ContextProvider = (children: any) => {
-    const [currentUser, setCurrentUser] = useState<any | null>({});
-    const [userToken, setUserToken] = useState<any | null>("");
+export const ContextProvider = ({ children }: any) => {
+    const [currentUser, setCurrentUser] = useState<any | null>({
+        name: "Hazz",
+        email: "user@gmail.com",
+        Image: "https://i.pinimg.com/236x/d7/68/42/d76842da733b7e4a2c679c0a6d0ba75e.jpg",
+    });
+    const [userToken, _setUserToken] = useState<any | null>(
+        localStorage.getItem("TOKEN") || ""
+    );
 
+    const setUserToken = (token: any) => {
+        if (token) localStorage.setItem("TOKEN", token);
+        else localStorage.removeItem("TOKEN");
+        _setUserToken(token);
+    };
     return (
         <StateContent.Provider
             value={{ currentUser, setCurrentUser, userToken, setUserToken }}

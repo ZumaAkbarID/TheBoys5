@@ -1,4 +1,6 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Navigate, Outlet } from "react-router-dom";
+import { useStateContext } from "../Context/ContextProvider";
+import axiosClient from "../axios";
 
 const list = [
     {
@@ -28,10 +30,26 @@ const list = [
 ];
 
 const MemberLayout = () => {
+    const { currentUser, userToken, setCurrentUser, setUserToken }: any =
+        useStateContext();
+
+    if (!userToken) {
+        return <Navigate to="/login" />;
+    }
+
     const navList = list;
     const classNames = (...classes: any) => {
         return classes.filter(Boolean).join(``);
     };
+    const logout = (e: any) => {
+        axiosClient.post("/logout").then(() => {
+            setCurrentUser({});
+            setUserToken(null);
+        });
+    };
+
+    // console.log(currentUser);
+    // console.log(userToken);
 
     return (
         <>
@@ -54,15 +72,14 @@ const MemberLayout = () => {
                             className="w-14 h-14 rounded-full shadow-sm overflow-hidden flex items-center justify-center lg:w-10 lg:h-10 lg:order-2"
                             to={"/member/profile"}
                         >
-                            <img
-                                src="https://i.pinimg.com/236x/d7/68/42/d76842da733b7e4a2c679c0a6d0ba75e.jpg"
-                                alt=""
-                            />
+                            <img src={currentUser.image} alt="" />
                         </NavLink>
                         <span className="flex items-start justify-center flex-col lg:flex-row lg:items-center lg:gap-2">
                             <div className="flex flex-col justify-center items-end">
                                 {/* XL BELL ICON */}
-                                <h1 className="font-semibold">Hazz</h1>
+                                <h1 className="font-semibold">
+                                    {currentUser.name}
+                                </h1>
                                 <button className="hidden lg:flex lg:items-center lg:justify-center xl:group">
                                     <i className="bx bx-bell"></i>
                                 </button>
@@ -70,7 +87,7 @@ const MemberLayout = () => {
                             </div>
                             <span className="lg:w-[2px] lg:h-8 lg:bg-black lg:rounded-full"></span>
                             <small className="text-gray-300 lg:hidden">
-                                Hazz
+                                {currentUser.name}
                             </small>
                         </span>
                     </div>

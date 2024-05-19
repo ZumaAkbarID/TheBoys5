@@ -3,10 +3,12 @@ type Props = {
     type: string;
     name: string;
     disable?: boolean;
+    value?: string;
+    onChange?: any;
 };
 
 const Input = (props: Props) => {
-    const { className, type, name, disable = false } = props;
+    const { className, type, name, disable = false, onChange, value } = props;
 
     return (
         <div className="pt-2 flex flex-col gap-2">
@@ -17,7 +19,10 @@ const Input = (props: Props) => {
                 name={name}
                 type={type}
                 disabled={disable}
+                required
+                value={value}
                 className="border py-1 px-3 rounded-lg shadow-md"
+                onChange={onChange}
             />
         </div>
     );

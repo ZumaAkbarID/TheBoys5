@@ -1,25 +1,101 @@
+import { Link } from "react-router-dom";
 import Input from "../../Components/Input";
 import Button from "../../Fragments/Button";
+import { useState } from "react";
+import axiosClient from "../../axios";
+import { useStateContext } from "../../Context/ContextProvider";
 
 const Register = () => {
-    return (
-        <form action="">
-            <Input type="text" name="username" />
-            <Input type="email" name="email" />
-            <Input type="number" name="number" />
-            <Input type="password" name="password" />
-            <Input type="password" name="confirm password" />
+    const [userName, setUserName] = useState("");
+    const [email, setEmail] = useState("");
+    const [number, setNumber] = useState("");
+    const [password, setPassword] = useState("");
+    const [passwordConfirmation, setPasswordConfirmation] = useState("");
+    const [error, setError] = useState({ _html: "" });
 
-            <span className="flex flex-col w-ful items-center justify-center pt-5">
-                <Button text="Register" />
-                <small>
-                    Already have an account?{" "}
-                    <a href="login" className="text-purple-600 underline">
-                        Sign in Here
-                    </a>
-                </small>
-            </span>
-        </form>
+    // const { setCurrentUser, setUserToken }: any = useStateContext();
+
+    const onSubmit = async (ev: any) => {
+        ev.preventDefault();
+        setError({ _html: "" });
+
+        await axiosClient
+            .post("/register", {
+                username: userName,
+                email,
+                password,
+                password_confirmation: passwordConfirmation,
+                number,
+            })
+            .then(({ data }) => {
+                console.log(data);
+                // setCurrentUser   (data);
+                // setUserToken(data.token);
+            })
+            .catch((error) => {
+                if (error.response) {
+                    const finnaErrors: any = Object.values(
+                        error.response.data.errors
+                    ).reduce(
+                        (accum: any, next: any) => [...accum, ...next],
+                        []
+                    );
+                    console.log(finnaErrors);
+                    setError({ _html: finnaErrors.join("<br />") });
+                }
+                console.log(error);
+            });
+    };
+
+    return (
+        <>
+            {error._html && (
+                <p
+                    className="bg-red-500 text-center py-2 px-3 text-white rounded-lg"
+                    dangerouslySetInnerHTML={{ __html: error._html }}
+                ></p>
+            )}
+            {/* {userName} */}
+            <form action="" onSubmit={onSubmit} className={""}>
+                <Input
+                    type="text"
+                    name="username"
+                    onChange={(ev: any) => setUserName(ev.target.value)}
+                />
+                <Input
+                    type="email"
+                    name="email"
+                    onChange={(ev: any) => setEmail(ev.target.value)}
+                />
+                <Input
+                    type="number"
+                    name="number"
+                    onChange={(ev: any) => setNumber(ev.target.value)}
+                />
+                <Input
+                    type="password"
+                    name="password"
+                    onChange={(ev: any) => setPassword(ev.target.value)}
+                />
+                <Input
+                    type="password"
+                    name="confirm password"
+                    onChange={(ev: any) =>
+                        setPasswordConfirmation(ev.target.value)
+                    }
+                />
+
+                <span className="flex flex-col w-ful items-center justify-center pt-5">
+                    <Button text="Register" />
+                    <small>
+                        Already have an account?{" "}
+                        <Link to="/login" className="text-purple-600 underline">
+                            Sign in Here
+                        </Link>
+                    </small>
+                </span>
+            </form>
+        </>
     );
 };
 
