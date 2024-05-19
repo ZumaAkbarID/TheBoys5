@@ -9,8 +9,8 @@ const GuestLayout = () => {
     }
 
     return (
-        <main className="w-full flex items-center justify-center h-screen px-10 ">
-            <div className="flex flex-col gap-2 border shadow-lg rounded-xl justify-start py-10 px-5 w-full">
+        <main className="w-full flex items-center justify-center h-screen">
+            <div className="flex flex-col gap-2 border shadow-lg rounded-xl py-10 px-5 w-[25rem]">
                 <h1 className="text-center text-3xl font-bold">The Boys 5</h1>
                 <div>
                     <Outlet />

@@ -1,5 +1,4 @@
 import Card from "../../Components/Card";
-import History from "../../Components/History";
 import HomeCard from "../../Components/HomeCard";
 import Leaderboard from "../../Components/Leaderboard";
 
@@ -43,9 +42,9 @@ const Member = () => {
 
             {/* CONTENT */}
             <div className="flex bg-gray-100 rounded-t-lg flex-col pt-28 pb-4 gap-5 lg:h-screen lg:pt-[6rem] lg:ps-[10rem] lg:gap-0 xl:ps-[12rem] xl:pe-[2rem] xl:flex-row xl:gap-5">
-                <div className="flex flex-col xl:w-[56rem] ">
+                <div className="flex flex-col xl:w-[56rem] xl:overflow-hidden">
                     {/* CENTER CUBE */}
-                    <div className="absolute flex items-center justify-start top-64 gap-5 w-full overflow-x-scroll ps-5 pb-5 md:justify-center md:ps-0 lg:relative lg:top-0 lg:pb-5 lg:justify-start lg:mx-10">
+                    <div className="absolute flex items-center justify-start top-64 gap-5 w-full overflow-x-scroll ps-5 pb-5 md:justify-center md:ps-0 lg:relative lg:top-0 lg:pb-5 lg:justify-start lg:ms-14 xl:ms-10 xl:mx-0">
                         {/* CUBE CONTENT  */}
                         {cardContents.map((cardContent: any, index: number) => (
                             <Card
@@ -60,7 +59,7 @@ const Member = () => {
                     </div>
                     {/* END CENTER CUBE */}
 
-                    <div className="flex gap-5 px-5 flex-col md:flex-row md:mx-10 lg:pb-5 lg:ms-10 lg:mx-0">
+                    <div className="flex gap-5 px-5 flex-col md:flex-row md:mx-10 lg:pb-5 lg:ms-10 lg:mx-0 xl:px-0">
                         {/* PAPAN INFO */}
                         <HomeCard title="PAPAN INFO">
                             <span className="flex flex-col w-1/2 justify-center items-center">
@@ -106,7 +105,7 @@ const Member = () => {
 
                 {/* XL CONTENT HIDDEN */}
                 {/* LAST ACTIVITY */}
-                <div className="px-5">
+                <div className="px-5 xl:hidden">
                     <span className="w-full bg-white rounded-xl py-7 mx-auto flex flex-col shadow-md gap-5 mb-36 px-1 md:mx-10 md:w-auto lg:py-0 lg:overflow-hidden lg:px-0 lg:gap-0 xl:hidden">
                         {/* HEADER */}
                         <div className="flex justify-between items-center px-8 lg:bg-purple-600 lg:py-5 lg:text-white">

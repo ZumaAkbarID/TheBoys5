@@ -60,8 +60,15 @@ const MemberLayout = () => {
                             />
                         </NavLink>
                         <span className="flex items-start justify-center flex-col lg:flex-row lg:items-center lg:gap-2">
-                            <h1 className="font-semibold">Hazz</h1>
-                            <span className="lg:w-[3px] lg:h-8 lg:bg-black lg:rounded-full"></span>
+                            <div className="flex flex-col justify-center items-end">
+                                {/* XL BELL ICON */}
+                                <h1 className="font-semibold">Hazz</h1>
+                                <button className="hidden lg:flex lg:items-center lg:justify-center xl:group">
+                                    <i className="bx bx-bell"></i>
+                                </button>
+                                {/* END XL BELL ICON */}
+                            </div>
+                            <span className="lg:w-[2px] lg:h-8 lg:bg-black lg:rounded-full"></span>
                             <small className="text-gray-300 lg:hidden">
                                 Hazz
                             </small>
