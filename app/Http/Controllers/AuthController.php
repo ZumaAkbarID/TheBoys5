@@ -6,57 +6,62 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
-        dd($data);
+        // dd($data);
 
-        $user= User::create([
+        $user = User::create([
             'username' => $data['username'],
             'email' => $data['email'],
             'number' => $data['number'],
-            'password' => bcrypt($data['password']),
+            'password' => Hash::make($data['password']),
         ]);
-
 
         $token = $user->createToken('main')->plainTextToken;
-        return response([
-            'user' => $user,
-            'token' => $token
-        ]);
+        return response()->json(
+            [
+                'user' => $user,
+                'token' => $token
+            ]
+        );
     }
 
     public function login(LoginRequest $request)
     {
         $credentials = $request->validated();
-        $remember = $credentials['remember'] ?? false; 
+        $remember = $credentials['remember'] ?? false;
         unset($credentials['remember']);
 
-        if (!auth()->attempt($credentials, $remember)) {
-            return response([
-                'error' => 'The provided credentials are incorrect.'
-            ], 422);
+        if (!Auth::attempt($credentials, $remember)) {
+            return response()->json(
+                [
+                    'error' => 'The provided credentials are incorrect.'
+                ],
+                422
+            );
         };
 
-        $token = auth()->user()->createToken('main')->plainTextToken;
-        return response([
-            'user' => auth()->user(),
-            'token' => $token   
-        ]);
+        $token = Auth::user()->createToken('main')->plainTextToken;
+        return response()->json(
+            [
+                'user' => auth()->user(),
+                'token' => $token
+            ]
+        );
     }
 
     public function logout(Request $request)
     {
-        $user = auth()->user();
+        Auth::user()->currentAccessToken()->delete();
 
-        $user->currentAccessToken()->delete();
-    
         return response([
             'success' => true
         ]);
     }
-    
 }
