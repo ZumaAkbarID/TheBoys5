@@ -66,7 +66,7 @@ const Talangan = () => {
 
                 {/* HISTORY */}
                 <History
-                    title="Kas History"
+                    title="Talangan History"
                     tableTitle={["No", "Name", "Month", "Status"]}
                     contents={0}
                 />
