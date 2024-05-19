@@ -13,7 +13,7 @@ const Register = () => {
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
     const [error, setError] = useState({ _html: "" });
 
-    // const { setCurrentUser, setUserToken }: any = useStateContext();
+    const { setCurrentUser, setUserToken }: any = useStateContext();
 
     const onSubmit = async (ev: any) => {
         ev.preventDefault();
@@ -28,20 +28,20 @@ const Register = () => {
                 number,
             })
             .then(({ data }) => {
-                console.log(data);
-                // setCurrentUser(data);
-                // setUserToken(data.token);
+                // console.log(data);
+                setCurrentUser(data);
+                setUserToken(data.token);
             })
             .catch((error) => {
                 if (error.response) {
-                    const finnaErrors: any = Object.values(
+                    const finnalErrors: any = Object.values(
                         error.response.data.errors
                     ).reduce(
                         (accum: any, next: any) => [...accum, ...next],
                         []
                     );
-                    console.log(finnaErrors);
-                    setError({ _html: finnaErrors.join("<br />") });
+                    console.log(finnalErrors);
+                    setError({ _html: finnalErrors.join("<br />") });
                 }
                 console.log(error);
             });

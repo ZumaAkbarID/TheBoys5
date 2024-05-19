@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('fullName')->default('-');
             $table->string('nim')->default('-');
-            $table->string('alamat')->default('-');
+            $table->string('address')->default('-');
             $table->rememberToken();
             $table->timestamps();
         });

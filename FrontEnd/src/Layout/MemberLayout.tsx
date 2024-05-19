@@ -1,6 +1,8 @@
 import { NavLink, Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../Context/ContextProvider";
 import axiosClient from "../axios";
+import Dropdown from "../Components/Dropdown";
+import { useState } from "react";
 
 const list = [
     {
@@ -38,10 +40,13 @@ const MemberLayout = () => {
     }
 
     const navList = list;
+    const [position, setPosition] = useState<string>("left");
+    console.log(position);
+
     const classNames = (...classes: any) => {
         return classes.filter(Boolean).join(``);
     };
-    const logout = (e: any) => {
+    const logout = () => {
         axiosClient.post("/logout").then(() => {
             setCurrentUser({});
             setUserToken(null);
@@ -68,12 +73,36 @@ const MemberLayout = () => {
 
                     {/* USER */}
                     <div className="flex gap-2 text-white items-center lg:text-black">
-                        <NavLink
-                            className="w-14 h-14 rounded-full shadow-sm overflow-hidden flex items-center justify-center lg:w-10 lg:h-10 lg:order-2"
-                            to={"/member/profile"}
-                        >
-                            <img src={currentUser.image} alt="" />
-                        </NavLink>
+                        <span className="lg:order-2">
+                            <Dropdown>
+                                <Dropdown.Trigger>
+                                    <button className="w-14 h-14 rounded-full shadow-sm overflow-hidden flex items-center justify-center lg:w-10 lg:h-10">
+                                        <img
+                                            // src={currentUser.image}
+                                            src="https://i.pinimg.com/236x/d7/68/42/d76842da733b7e4a2c679c0a6d0ba75e.jpg"
+                                            alt=""
+                                        />
+                                    </button>
+                                </Dropdown.Trigger>
+
+                                <Dropdown.Content
+                                    align={`${position}`}
+                                    className={`${() => setPosition} lg:${() =>
+                                        setPosition("right")}`}
+                                >
+                                    <Dropdown.NavLink to="/member/profile">
+                                        Profile
+                                    </Dropdown.NavLink>
+                                    <Dropdown.NavLink
+                                        as="button"
+                                        onClick={logout}
+                                    >
+                                        Log Out
+                                    </Dropdown.NavLink>
+                                </Dropdown.Content>
+                            </Dropdown>
+                        </span>
+
                         <span className="flex items-start justify-center flex-col lg:flex-row lg:items-center lg:gap-2">
                             <div className="flex flex-col justify-center items-end">
                                 {/* XL BELL ICON */}

@@ -2,7 +2,7 @@ type Props = {
     className?: string;
     text: string;
     action?: () => {};
-    click?: () => {};
+    click?: any;
 };
 
 const Button = (props: Props) => {
