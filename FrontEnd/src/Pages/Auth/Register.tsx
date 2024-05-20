@@ -28,8 +28,7 @@ const Register = () => {
                 number,
             })
             .then(({ data }) => {
-                // console.log(data);
-                setCurrentUser(data);
+                setCurrentUser(data.user);
                 setUserToken(data.token);
             })
             .catch((error) => {

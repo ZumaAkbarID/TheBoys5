@@ -9,28 +9,35 @@ const StateContent: any = createContext({
 });
 
 export const ContextProvider = ({ children }: any) => {
-    const [currentUser, setCurrentUser] = useState<any | null>({});
+    // const [currentUser, setCurrentUser] = useState<any | null>({});
     const [userToken, _setUserToken] = useState<any | null>(
         localStorage.getItem("TOKEN") || ""
     );
+    const [currentUser, setCurrentUser] = useState<any | null>(
+        JSON.parse(localStorage.getItem("CURRENT_USER") || "{}")
+    );
 
-    // useEffect(() => {
-    //     const fetchCurrentUser = async () => {
-    //         try {
-    //             await axiosClient
-    //                 .get(`/user/${currentUser.id}`)
-    //                 .then((response) => {
-    //                     setCurrentUser(response.data);
-    //                 });
-    //         } catch (error) {
-    //             console.error("Error fetching current user:", error);
-    //         }
-    //     };
+    useEffect(() => {
+        const fetchCurrentUser = async () => {
+            try {
+                await axiosClient
+                    .post(`/user/${currentUser.id}`)
+                    .then((response) => {
+                        setCurrentUser(response.data.user);
+                        localStorage.setItem(
+                            "CURRENT_USER",
+                            JSON.stringify(response.data.user)
+                        );
+                    });
+            } catch (error) {
+                console.error("Error fetching current user:", error);
+            }
+        };
 
-    //     if (currentUser.id && userToken) {
-    //         fetchCurrentUser();
-    //     }
-    // }, []);
+        if (userToken) {
+            fetchCurrentUser();
+        }
+    }, [userToken]);
 
     const setUserToken = (token: any) => {
         if (token) localStorage.setItem("TOKEN", token);
@@ -38,8 +45,6 @@ export const ContextProvider = ({ children }: any) => {
         _setUserToken(token);
     };
 
-    console.log(currentUser);
-    console.log(userToken);
     return (
         <StateContent.Provider
             value={{ currentUser, setCurrentUser, userToken, setUserToken }}

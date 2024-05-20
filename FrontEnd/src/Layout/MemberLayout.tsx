@@ -2,7 +2,7 @@ import { NavLink, Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../Context/ContextProvider";
 import axiosClient from "../axios";
 import Dropdown from "../Components/Dropdown";
-import { useState } from "react";
+import { useEffect } from "react";
 
 const list = [
     {
@@ -119,7 +119,7 @@ const MemberLayout = () => {
                             <div className="flex flex-col justify-center items-end">
                                 {/* XL BELL ICON */}
                                 <h1 className="font-semibold">
-                                    {currentUser.userName}
+                                    {currentUser.username}
                                 </h1>
                                 <button className="hidden lg:flex lg:items-center lg:justify-center xl:group">
                                     <i className="bx bx-bell"></i>
@@ -128,7 +128,7 @@ const MemberLayout = () => {
                             </div>
                             <span className="lg:w-[2px] lg:h-8 lg:bg-black lg:rounded-full"></span>
                             <small className="text-gray-300 lg:hidden">
-                                {currentUser.userName}
+                                {currentUser.username}
                             </small>
                         </span>
                     </div>

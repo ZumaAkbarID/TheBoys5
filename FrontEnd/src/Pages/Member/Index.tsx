@@ -1,6 +1,9 @@
+import { useEffect, useState, useSyncExternalStore } from "react";
 import Card from "../../Components/Card";
 import HomeCard from "../../Components/HomeCard";
 import Leaderboard from "../../Components/Leaderboard";
+import axiosClient from "../../axios";
+import { useStateContext } from "../../Context/ContextProvider";
 
 const listCard = [
     {
@@ -25,6 +28,65 @@ const listCard = [
 
 const Member = () => {
     const cardContents = listCard;
+    const { userToken }: any = useStateContext();
+    const [defaultBalance, setDefaultBalance] = useState(0);
+    const [remainingBalance, setRemainingBalance] = useState(0);
+    const [remainingUser, setRemainingUser] = useState(0);
+    const [currentBalance, setCurrentBalance] = useState(0);
+
+    // FETCH LIST LEADERBOARD
+    // useEffect(() => {
+    //     const fetchDefaultBelance = async () => {
+    //         try {
+    //             await axiosClient.post(`/balance/default`).then((response) => {
+    //                 setDefaultBalance(response.data);
+    //             });
+    //         } catch (error) {
+    //             console.error("Error fetching current default balance:", error);
+    //         }
+    //     };
+    //     const fetchRemainingBelance = async () => {
+    //         try {
+    //             await axiosClient
+    //                 .post(`/balance/remaining`)
+    //                 .then((response) => {
+    //                     setRemainingBalance(response.data);
+    //                 });
+    //         } catch (error) {
+    //             console.error(
+    //                 "Error fetching current remaining balance:",
+    //                 error
+    //             );
+    //         }
+    //     };
+    //     const fetchRemainingUser = async () => {
+    //         try {
+    //             await axiosClient
+    //                 .post(`/balance/remaining-people`)
+    //                 .then((response) => {
+    //                     setRemainingUser(response.data);
+    //                 });
+    //         } catch (error) {
+    //             console.error("Error fetching current remaining user:", error);
+    //         }
+    //     };
+    //     const fetchCurrentBalance = async () => {
+    //         try {
+    //             await axiosClient.post(`/balance/current`).then((response) => {
+    //                 setCurrentBalance(response.data);
+    //             });
+    //         } catch (error) {
+    //             console.error("Error fetching current current balance:", error);
+    //         }
+    //     };
+
+    //     if (userToken) {
+    //         fetchDefaultBelance();
+    //         fetchRemainingBelance();
+    //         fetchRemainingUser();
+    //         fetchCurrentBalance();
+    //     }
+    // }, []);
 
     return (
         <div className="w-full bg-purple-600 flex flex-col relative gap-32 pt-28 lg:pt-0">

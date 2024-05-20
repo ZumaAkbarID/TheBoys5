@@ -75,12 +75,20 @@ const Profile = () => {
                                 {currentUser.name}
                             </small>
                             <h1>
-                                {currentUser.fullName} - {currentUser.nim}
+                                {currentUser.fullName && currentUser.nim != null
+                                    ? currentUser.fullName - currentUser.nim
+                                    : "Fill u're data first"}
                             </h1>
                             <span className="flex gap-1 justify-center items-center mb-2">
-                                <i className="bx bx-location-plus"></i>
-                                <p>{currentUser.address}</p>
-                                <p>{currentUser.address}</p>
+                                {currentUser.fullName &&
+                                currentUser.nim != null ? (
+                                    <>
+                                        <i className="bx bx-location-plus"></i>
+                                        <p>{currentUser.address}</p>
+                                    </>
+                                ) : (
+                                    ""
+                                )}
                             </span>
                             <span className="flex items-center justify-center w-1/2 gap-2">
                                 <Button
