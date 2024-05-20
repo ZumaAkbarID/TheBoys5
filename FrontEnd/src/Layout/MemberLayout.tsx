@@ -41,7 +41,6 @@ const MemberLayout = () => {
 
     const navList = list;
     const [position, setPosition] = useState<string>("left");
-    console.log(position);
 
     const classNames = (...classes: any) => {
         return classes.filter(Boolean).join(``);
@@ -52,9 +51,6 @@ const MemberLayout = () => {
             setUserToken(null);
         });
     };
-
-    // console.log(currentUser);
-    // console.log(userToken);
 
     return (
         <>
@@ -107,7 +103,7 @@ const MemberLayout = () => {
                             <div className="flex flex-col justify-center items-end">
                                 {/* XL BELL ICON */}
                                 <h1 className="font-semibold">
-                                    {currentUser.name}
+                                    {currentUser.username}
                                 </h1>
                                 <button className="hidden lg:flex lg:items-center lg:justify-center xl:group">
                                     <i className="bx bx-bell"></i>
@@ -116,7 +112,7 @@ const MemberLayout = () => {
                             </div>
                             <span className="lg:w-[2px] lg:h-8 lg:bg-black lg:rounded-full"></span>
                             <small className="text-gray-300 lg:hidden">
-                                {currentUser.name}
+                                {currentUser.username}
                             </small>
                         </span>
                     </div>

@@ -22,7 +22,8 @@ const Login = () => {
                 password,
             })
             .then(({ data }) => {
-                setCurrentUser(data);
+                // console.log(data.user);
+                setCurrentUser(data.user);
                 setUserToken(data.token);
             })
             .catch((error) => {

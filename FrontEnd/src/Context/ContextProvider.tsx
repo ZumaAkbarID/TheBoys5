@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import axiosClient from "../axios";
 
 const StateContent: any = createContext({
     currentUser: {},
@@ -8,14 +9,28 @@ const StateContent: any = createContext({
 });
 
 export const ContextProvider = ({ children }: any) => {
-    const [currentUser, setCurrentUser] = useState<any | null>({
-        name: "Hazz",
-        email: "user@gmail.com",
-        Image: "https://i.pinimg.com/236x/d7/68/42/d76842da733b7e4a2c679c0a6d0ba75e.jpg",
-    });
+    const [currentUser, setCurrentUser] = useState<any | null>({});
     const [userToken, _setUserToken] = useState<any | null>(
         localStorage.getItem("TOKEN") || ""
     );
+
+    useEffect(() => {
+        const fetchCurrentUser = async () => {
+            try {
+                await axiosClient
+                    .get(`/user/${currentUser.id}`)
+                    .then((response) => {
+                        setCurrentUser(response.data.user);
+                    });
+            } catch (error) {
+                console.error("Error fetching current user:", error);
+            }
+        };
+
+        if (userToken) {
+            fetchCurrentUser();
+        }
+    }, [userToken]);
 
     const setUserToken = (token: any) => {
         if (token) localStorage.setItem("TOKEN", token);
