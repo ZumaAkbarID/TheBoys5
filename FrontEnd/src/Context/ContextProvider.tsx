@@ -20,23 +20,26 @@ export const ContextProvider = ({ children }: any) => {
                 await axiosClient
                     .get(`/user/${currentUser.id}`)
                     .then((response) => {
-                        setCurrentUser(response.data.user);
+                        setCurrentUser(response.data);
                     });
             } catch (error) {
                 console.error("Error fetching current user:", error);
             }
         };
 
-        if (userToken) {
+        if (currentUser.id && userToken) {
             fetchCurrentUser();
         }
-    }, [userToken]);
+    }, []);
 
     const setUserToken = (token: any) => {
         if (token) localStorage.setItem("TOKEN", token);
         else localStorage.removeItem("TOKEN");
         _setUserToken(token);
     };
+
+    console.log(currentUser);
+    console.log(userToken);
     return (
         <StateContent.Provider
             value={{ currentUser, setCurrentUser, userToken, setUserToken }}

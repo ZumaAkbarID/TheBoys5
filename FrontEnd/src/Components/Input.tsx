@@ -21,7 +21,7 @@ const Input = (props: Props) => {
                 disabled={disable}
                 required
                 value={value}
-                className="border py-1 px-3 rounded-lg shadow-md"
+                className="border py-1 px-3 rounded-lg shadow-md "
                 onChange={onChange}
             />
         </div>

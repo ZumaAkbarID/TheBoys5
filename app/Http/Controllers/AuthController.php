@@ -14,8 +14,6 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
-        // dd($data);
-
         $user = User::create([
             'username' => $data['username'],
             'email' => $data['email'],
@@ -64,4 +62,16 @@ class AuthController extends Controller
             'success' => true
         ]);
     }
+
+    // public function userId(Request $request){
+    //     $userId = Auth::user()->id;
+
+    //     $user = User::find($userId);
+        
+    //     return response()->json(
+    //         [
+    //             'user' => $user,
+    //         ]
+    //     );
+    // }
 }
