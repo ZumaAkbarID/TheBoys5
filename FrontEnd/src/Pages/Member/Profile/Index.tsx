@@ -3,6 +3,7 @@ import Button from "../../../Fragments/Button";
 import { useStateContext } from "../../../Context/ContextProvider";
 import Modal from "../../../Fragments/Modal";
 import ProfileEdit from "./Edit";
+import axiosClient from "../../../axios";
 
 const initialize = [
     {
@@ -16,7 +17,8 @@ const initialize = [
 ];
 
 const Profile = () => {
-    const { currentUser, setCurrentUser }: any = useStateContext();
+    const { currentUser, setCurrentUser, setUserToken }: any =
+        useStateContext();
 
     const [contents, setContents] = useState<any>(initialize);
     const [onSelected, setOnSelected] = useState<any>(null);
@@ -26,6 +28,12 @@ const Profile = () => {
 
     //EDIT IMG
 
+    const logout = async () => {
+        await axiosClient.post("/logout").then(() => {
+            setCurrentUser({});
+            setUserToken(null);
+        });
+    };
     // console.log(onSelected);
     // console.log(currentUser);
 
@@ -74,13 +82,18 @@ const Profile = () => {
                                 <p>{currentUser.address}</p>
                                 <p>{currentUser.address}</p>
                             </span>
-                            <span className="flex items-center justify-center w-1/4">
+                            <span className="flex items-center justify-center w-1/2 gap-2">
                                 <Button
                                     text="Edit Data"
                                     className="bg-purple-600"
                                     click={() => {
                                         setIsEdit(true);
                                     }}
+                                />
+                                <Button
+                                    text="Logout"
+                                    className="bg-red-600 lg:hidden"
+                                    click={logout}
                                 />
                             </span>
                         </div>

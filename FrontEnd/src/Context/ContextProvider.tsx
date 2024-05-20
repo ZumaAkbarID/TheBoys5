@@ -14,23 +14,23 @@ export const ContextProvider = ({ children }: any) => {
         localStorage.getItem("TOKEN") || ""
     );
 
-    useEffect(() => {
-        const fetchCurrentUser = async () => {
-            try {
-                await axiosClient
-                    .get(`/user/${currentUser.id}`)
-                    .then((response) => {
-                        setCurrentUser(response.data);
-                    });
-            } catch (error) {
-                console.error("Error fetching current user:", error);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchCurrentUser = async () => {
+    //         try {
+    //             await axiosClient
+    //                 .get(`/user/${currentUser.id}`)
+    //                 .then((response) => {
+    //                     setCurrentUser(response.data);
+    //                 });
+    //         } catch (error) {
+    //             console.error("Error fetching current user:", error);
+    //         }
+    //     };
 
-        if (currentUser.id && userToken) {
-            fetchCurrentUser();
-        }
-    }, []);
+    //     if (currentUser.id && userToken) {
+    //         fetchCurrentUser();
+    //     }
+    // }, []);
 
     const setUserToken = (token: any) => {
         if (token) localStorage.setItem("TOKEN", token);

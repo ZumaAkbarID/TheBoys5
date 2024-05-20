@@ -40,13 +40,11 @@ const MemberLayout = () => {
     }
 
     const navList = list;
-    const [position, setPosition] = useState<string>("left");
-
     const classNames = (...classes: any) => {
         return classes.filter(Boolean).join(``);
     };
-    const logout = () => {
-        axiosClient.post("/logout").then(() => {
+    const logout = async () => {
+        await axiosClient.post("/logout").then(() => {
             setCurrentUser({});
             setUserToken(null);
         });
@@ -69,23 +67,41 @@ const MemberLayout = () => {
 
                     {/* USER */}
                     <div className="flex gap-2 text-white items-center lg:text-black">
-                        <span className="lg:order-2">
+                        <span className="lg:hidden">
+                            <NavLink
+                                className="w-14 h-14 rounded-full shadow-sm overflow-hidden flex items-center justify-center lg:w-10 lg:h-10"
+                                to={"/member/profile"}
+                            >
+                                {currentUser.avatar === null ? (
+                                    <img
+                                        src="https://i.pinimg.com/236x/d7/68/42/d76842da733b7e4a2c679c0a6d0ba75e.jpg"
+                                        alt=""
+                                    />
+                                ) : (
+                                    <img src={currentUser.avater} alt="" />
+                                )}
+                            </NavLink>
+                        </span>
+
+                        <span className="hidden lg:flex lg:order-2">
                             <Dropdown>
                                 <Dropdown.Trigger>
                                     <button className="w-14 h-14 rounded-full shadow-sm overflow-hidden flex items-center justify-center lg:w-10 lg:h-10">
-                                        <img
-                                            // src={currentUser.image}
-                                            src="https://i.pinimg.com/236x/d7/68/42/d76842da733b7e4a2c679c0a6d0ba75e.jpg"
-                                            alt=""
-                                        />
+                                        {currentUser.avatar === null ? (
+                                            <img
+                                                src="https://i.pinimg.com/236x/d7/68/42/d76842da733b7e4a2c679c0a6d0ba75e.jpg"
+                                                alt=""
+                                            />
+                                        ) : (
+                                            <img
+                                                src={currentUser.avater}
+                                                alt=""
+                                            />
+                                        )}
                                     </button>
                                 </Dropdown.Trigger>
 
-                                <Dropdown.Content
-                                    align={`${position}`}
-                                    className={`${() => setPosition} lg:${() =>
-                                        setPosition("right")}`}
-                                >
+                                <Dropdown.Content align={`right`}>
                                     <Dropdown.NavLink to="/member/profile">
                                         Profile
                                     </Dropdown.NavLink>
