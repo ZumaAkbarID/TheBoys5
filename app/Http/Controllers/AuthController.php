@@ -14,22 +14,31 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
-        // dd($data);
 
-        $user = User::create([
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'number' => $data['number'],
-            'password' => Hash::make($data['password']),
-        ]);
+        try {
+            $user = User::create([
+                'username' => $data['username'],
+                'email' => $data['email'],
+                'number' => $data['number'],
+                'password' => Hash::make($data['password']),
+            ]);
 
-        $token = $user->createToken('main')->plainTextToken;
-        return response()->json(
-            [
-                'user' => $user,
-                'token' => $token
-            ]
-        );
+            $token = $user->createToken('main')->plainTextToken;
+
+            return response()->json(
+                [
+                    'user' => $user,
+                    'token' => $token
+                ]
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'error' => 'Something wrong.'
+                ],
+                500
+            );
+        }
     }
 
     public function login(LoginRequest $request)
@@ -60,7 +69,7 @@ class AuthController extends Controller
     {
         Auth::user()->currentAccessToken()->delete();
 
-        return response([
+        return response()->json([
             'success' => true
         ]);
     }
