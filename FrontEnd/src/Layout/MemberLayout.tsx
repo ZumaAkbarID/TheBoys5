@@ -3,6 +3,7 @@ import { useStateContext } from "../Context/ContextProvider";
 import axiosClient from "../axios";
 import Dropdown from "../Components/Dropdown";
 import { useEffect } from "react";
+import Month from "../Components/Month";
 
 const list = [
     {
@@ -136,13 +137,7 @@ const MemberLayout = () => {
 
                     {/* CALENDER */}
                     <span className="roudend-xl w-20 bg-gray-200 rounded-full flex items-center justify-between text-black px-2 py-1 lg:hidden">
-                        <button>
-                            <i className="bx bx-chevron-left"></i>
-                        </button>
-                        <small>MAY</small>
-                        <button>
-                            <i className="bx bx-chevron-right"></i>
-                        </button>
+                        <Month />
                     </span>
                     {/* END CALENDER */}
                 </div>
@@ -173,12 +168,6 @@ const MemberLayout = () => {
                     </div>
                 </div>
             </div>
-            {/* <button className="relative w-5">
-                        <span className="flex items-center justify-center px-5 py-4 border bg-black text-white rounded-full hover:bg-purple-600 transition ease-in-out duration-300 cursor-pointer absolute -top-16 -left-5 outline outline-8 outline-gray-100 shadow-md">
-                            <i className="bx bx-plus text-3xl font-bold"></i>
-                        </span>
-                    </button> */}
-            {/* END NAV */}
         </>
     );
 };

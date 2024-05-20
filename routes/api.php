@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GalonController;
 use App\Http\Controllers\InfoController;
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/user', function (Request $request) {
@@ -13,11 +13,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/user/{id}', [UserController::class, 'show']);
-    Route::put('/user/{userId}/edit', [UserController::class, 'update']);
+    Route::post('/user/{id}', [UserController::class, 'show']);
+    Route::put('/user/{id}/edit', [UserController::class, 'update']);
   
     // Info
     Route::post('/info', [InfoController::class, 'all']);
+
+    // Galon
+    Route::post('/galon', [GalonController::class, 'showGalon']);
 
     // Kas
     Route::group(['prefix' => 'balance'], function () {

@@ -28,65 +28,56 @@ const listCard = [
 
 const Member = () => {
     const cardContents = listCard;
-    const { userToken }: any = useStateContext();
+    const { userToken, currentUser }: any = useStateContext();
     const [defaultBalance, setDefaultBalance] = useState(0);
     const [remainingBalance, setRemainingBalance] = useState(0);
     const [remainingUser, setRemainingUser] = useState(0);
     const [currentBalance, setCurrentBalance] = useState(0);
+    const [galon, setGalon] = useState<any>(null);
+    const [currentGalon, setCurrentGalon] = useState(false);
 
     // FETCH LIST LEADERBOARD
-    // useEffect(() => {
-    //     const fetchDefaultBelance = async () => {
-    //         try {
-    //             await axiosClient.post(`/balance/default`).then((response) => {
-    //                 setDefaultBalance(response.data);
-    //             });
-    //         } catch (error) {
-    //             console.error("Error fetching current default balance:", error);
-    //         }
-    //     };
-    //     const fetchRemainingBelance = async () => {
-    //         try {
-    //             await axiosClient
-    //                 .post(`/balance/remaining`)
-    //                 .then((response) => {
-    //                     setRemainingBalance(response.data);
-    //                 });
-    //         } catch (error) {
-    //             console.error(
-    //                 "Error fetching current remaining balance:",
-    //                 error
-    //             );
-    //         }
-    //     };
-    //     const fetchRemainingUser = async () => {
-    //         try {
-    //             await axiosClient
-    //                 .post(`/balance/remaining-people`)
-    //                 .then((response) => {
-    //                     setRemainingUser(response.data);
-    //                 });
-    //         } catch (error) {
-    //             console.error("Error fetching current remaining user:", error);
-    //         }
-    //     };
-    //     const fetchCurrentBalance = async () => {
-    //         try {
-    //             await axiosClient.post(`/balance/current`).then((response) => {
-    //                 setCurrentBalance(response.data);
-    //             });
-    //         } catch (error) {
-    //             console.error("Error fetching current current balance:", error);
-    //         }
-    //     };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [
+                    defaultBalanceResponse,
+                    remainingBalanceResponse,
+                    remainingUserResponse,
+                    currentBalanceResponse,
+                    galonResponse,
+                ] = await Promise.all([
+                    axiosClient.post("/balance/default"),
+                    axiosClient.post("/balance/remaining"),
+                    axiosClient.post("/balance/remaining-people"),
+                    axiosClient.post("/balance/current"),
+                    axiosClient.post("/galon"),
+                ]);
 
-    //     if (userToken) {
-    //         fetchDefaultBelance();
-    //         fetchRemainingBelance();
-    //         fetchRemainingUser();
-    //         fetchCurrentBalance();
-    //     }
-    // }, []);
+                setDefaultBalance(defaultBalanceResponse.data);
+                setRemainingBalance(remainingBalanceResponse.data);
+                setRemainingUser(remainingUserResponse.data);
+                setCurrentBalance(currentBalanceResponse.data);
+                setGalon(galonResponse.data.galon);
+
+                // if (galon != null) {
+                //     if (currentUser.galon.current === 1)
+                //         setCurrentGalon(() => true);
+                // }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        if (userToken) {
+            fetchData();
+        }
+    }, [userToken]);
+
+    // if (galon != null) console.log(galon[0].user_id.username);
+
+    // console.log(currentGalon);
+    // console.log(currentUser.galon.current);
 
     return (
         <div className="w-full bg-purple-600 flex flex-col relative gap-32 pt-28 lg:pt-0">
@@ -142,23 +133,30 @@ const Member = () => {
                         {/* END PAPAN INFO */}
 
                         {/* GALON */}
-                        <HomeCard title="JADWAL GALON">
-                            <span className="flex items-center justify-center w-full gap-2">
-                                <small className="text-center bg-purple-600 text-white px-2 py-1 rounded-md lg:py-3 lg:px-5">
-                                    Alex
-                                </small>
-                                <small className="text-center bg-gray-300 text-white px-2 py-1 rounded-md lg:py-3 lg:px-5">
-                                    Zuma
-                                </small>
-                                <small className="text-center bg-gray-300 text-white px-2 py-1 rounded-md lg:py-3 lg:px-5">
-                                    Wahid
-                                </small>
-                                <small className="text-center bg-gray-300 text-white px-2 py-1 rounded-md lg:py-3 lg:px-5">
-                                    Bahar
-                                </small>
-                                <small className="text-center bg-gray-300 text-white px-2 py-1 rounded-md lg:py-3 lg:px-5">
-                                    Azka
-                                </small>
+                        <HomeCard title="JADWAL GALON" current={currentGalon}>
+                            <span className="flex items-center justify-center w-full gap-2 flex-wrap">
+                                <>
+                                    {galon != null ? (
+                                        galon.map(
+                                            (galon: any, index: number) => (
+                                                <small
+                                                    className={`text-center ${
+                                                        galon.current === 1
+                                                            ? "bg-purple-600"
+                                                            : "bg-gray-300"
+                                                    } text-white px-2 rounded-md lg:py-3 lg:px-5 text-nowrap`}
+                                                    key={index}
+                                                >
+                                                    {galon.user_id.username}
+                                                </small>
+                                            )
+                                        )
+                                    ) : (
+                                        <small className="text-black">
+                                            Mengecheck galon...
+                                        </small>
+                                    )}
+                                </>
                             </span>
                         </HomeCard>
                         {/* END GALON */}
