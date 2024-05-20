@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "../../../Fragments/Button";
 import { useStateContext } from "../../../Context/ContextProvider";
 import Modal from "../../../Fragments/Modal";
-import Input from "../../../Components/Input";
+import ProfileEdit from "./Edit";
 
 const initialize = [
     {
@@ -16,24 +16,18 @@ const initialize = [
 ];
 
 const Profile = () => {
-    const { currentUser }: any = useStateContext();
+    const { currentUser, setCurrentUser }: any = useStateContext();
 
     const [contents, setContents] = useState<any>(initialize);
     const [onSelected, setOnSelected] = useState<any>(null);
     const [isEdit, setIsEdit] = useState<boolean>(false);
+    const [isImgEdit, setIsImgEdit] = useState<boolean>(false);
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    // EDIT PROFILE
-    const [userName, setUserName] = useState("");
-    const [email, setEmail] = useState("");
-    const [number, setNumber] = useState("");
-    const [password, setPassword] = useState("");
-    const [passwordConfirmation, setPasswordConfirmation] = useState("");
-    const [error, setError] = useState({ _html: "" });
-    // END EDIT PROFILE
+    //EDIT IMG
 
     // console.log(onSelected);
-    console.log(currentUser);
+    // console.log(currentUser);
 
     return (
         <div className="bg-gray-100 h-screen relative pt-16 md:px-32 lg:ps-[11rem] lg:pe-3">
@@ -50,13 +44,20 @@ const Profile = () => {
                             My Profile
                         </h1>
                         {/* PROFILE IMG */}
-                        <span className="flex items-center justify-center z-50">
-                            <button className="h-32 w-32 rounded-full bg-black outline-8 outline outline-gray-100 overflow-hidden lg:outline-none">
+                        <span className="flex items-center justify-center z-50 relative">
+                            <span className="h-32 w-32 rounded-full bg-black outline-8 outline outline-gray-100 overflow-hidden lg:outline-none">
                                 <img
                                     src="https://i.pinimg.com/236x/d7/68/42/d76842da733b7e4a2c679c0a6d0ba75e.jpg"
                                     alt=""
                                 />
-                            </button>
+
+                                <button
+                                    className="absolute translate-x-20 -translate-y-9 w-10 h-10 bg-white border rounded-full hover:bg-purple-400 transition-all duration-300 ease-linear hover:text-white"
+                                    onClick={() => setIsImgEdit(true)}
+                                >
+                                    <i className="bx bxs-camera-plus"></i>
+                                </button>
+                            </span>
                         </span>
                         {/* END PROFILE IMG */}
 
@@ -65,11 +66,13 @@ const Profile = () => {
                             <small className="text-gray-500 font-semibold">
                                 {currentUser.name}
                             </small>
-                            <h1>Wahid Hasim S - 22.11.4878</h1>
+                            <h1>
+                                {currentUser.fullName} - {currentUser.nim}
+                            </h1>
                             <span className="flex gap-1 justify-center items-center mb-2">
                                 <i className="bx bx-location-plus"></i>
                                 <p>{currentUser.address}</p>
-                                <p>Kebumen</p>
+                                <p>{currentUser.address}</p>
                             </span>
                             <span className="flex items-center justify-center w-1/4">
                                 <Button
@@ -113,50 +116,69 @@ const Profile = () => {
 
             {/* MODAL EDIT DATA */}
             {isEdit === true && (
+                <ProfileEdit isEdit={isEdit} setIsEdit={setIsEdit} />
+            )}
+            {/* END MODAL EDIT DATA */}
+
+            {/* MODAL EDIT IMG */}
+            {isImgEdit === true && (
                 <Modal
-                    show={isEdit}
-                    onClose={() => setIsEdit(false)}
+                    onClose={() => setIsImgEdit(false)}
+                    show={isImgEdit}
                     closeable={true}
                     maxWidth="xl"
                 >
-                    <div className="bg-white">
+                    <div className="bg-white w-full pb-7">
                         <h1 className="text-center font-bold text-lg mb-3 pt-3 md:text-xl lg:text-2xl lg:pt-5 lg:mb-5 text-black">
-                            Edit Profile
+                            Edit Image
                         </h1>
                         <hr />
+                        <form action="#" className="px-10 grid gap-0 lg:gap-3">
+                            <div className="flex items-center justify-center w-full">
+                                <label className="flex flex-col items-center justify-center w-full h-40 lg:h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 dark:border-gray-600">
+                                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                        <svg
+                                            className="w-5 h-5 lg:w-8 lg:h-8 mb-4 text-gray-500 dark:text-gray-400"
+                                            aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 20 16"
+                                        >
+                                            <path
+                                                stroke="currentColor"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                                            />
+                                        </svg>
+                                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                            <span className="font-semibold">
+                                                Click to upload
+                                            </span>{" "}
+                                            or drag and drop
+                                        </p>
+                                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                                            SVG, PNG, JPG or GIF (MAX.
+                                            800x400px)
+                                        </p>
+                                    </div>
+                                    <input
+                                        id="dropzone-file"
+                                        type="file"
+                                        className="hidden"
+                                    />
+                                </label>
+                            </div>
 
-                        {/* DATA DISPLAY*/}
-                        <span className="flex flex-col items-center px-5 lg:px-0 lg:justify-center">
-                            <Input
-                                type="text"
-                                name="username"
-                                value={currentUser.name}
-                                onChange={(ev: any) =>
-                                    setUserName(ev.target.value)
-                                }
-                            />
-                            <Input
-                                type="text"
-                                name="alamat"
-                                value={currentUser.address}
-                                onChange={(ev: any) =>
-                                    setUserName(ev.target.value)
-                                }
-                            />
-                            <Input
-                                type="text"
-                                name="number"
-                                value={currentUser.number}
-                                onChange={(ev: any) =>
-                                    setUserName(ev.target.value)
-                                }
-                            />
-                        </span>
-                        {/* END DATA DISPLAY*/}
+                            <span className="mt-5">
+                                <Button text="save" />
+                            </span>
+                        </form>
                     </div>
                 </Modal>
             )}
-            {/* END MODAL EDIT DATA */}
+            {/* MODAL END EDIT IMG */}
         </div>
     );
 };

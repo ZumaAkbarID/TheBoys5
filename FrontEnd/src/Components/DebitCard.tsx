@@ -2,7 +2,7 @@ const DebitCard = () => {
     return (
         <>
             {/* DANA CARD */}
-            <div className="py-3 px-5 border shadow-md w-[20rem] h-[10rem] flex flex-col justify-between rounded-xl bg-gradient-to-bl from-black to-gray-700 relative overflow-hidden mx-10">
+            <div className="py-3 px-5 border shadow-md w-[20rem] h-[10rem] flex flex-col justify-between rounded-xl bg-gradient-to-bl from-black to-gray-700 relative overflow-hidden lg:mx-10">
                 <span className="w-12 h-9 rounded-md bg-yellow-400 mt-4 flex items-center">
                     <div className="w-1/4 border-r-2 rounded-xl h-full border-yellow-500"></div>
                     <span className="flex flex-col w-1/2 gap-2">

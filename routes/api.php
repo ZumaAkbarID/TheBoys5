@@ -12,12 +12,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-
+  
     // Info
     Route::post('/info', [InfoController::class, 'all']);
 
     // Kas
     Route::group(['prefix' => 'balance'], function () {
+        Route::get('/user/{id}', [UserController::class, 'show']);
+        Route::put('/user/{userId}/edit', [UserController::class, 'update']);
         Route::post('default', [LedgerController::class, 'defaultKas']);
         Route::post('remaining', [LedgerController::class, 'remainingBalance']);
         Route::post('current', [LedgerController::class, 'currentBalance']);
