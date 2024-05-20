@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Ledger::class, 'user_id', 'id');
     }
+
+    public function galon()
+    {
+        return $this->hasOne(Galon::class, 'user_id', 'id');
+    }
 }

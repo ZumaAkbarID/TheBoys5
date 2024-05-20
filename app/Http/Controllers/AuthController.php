@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Galon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,12 +24,17 @@ class AuthController extends Controller
                 'password' => Hash::make($data['password']),
             ]);
 
+            $galon = Galon::create([
+                'user_id' => $user->id,
+            ]);
+
             $token = $user->createToken('main')->plainTextToken;
 
             return response()->json(
                 [
                     'user' => $user,
-                    'token' => $token
+                    'token' => $token,
+                    'galon' => $galon
                 ]
             );
         } catch (\Exception $e) {
