@@ -15,6 +15,7 @@ Then configure environment for the backend
 
 ```bash
 php artisan key:generate
+php artisan migrate --seed
 ```
 
 Configure FrontEnd:
