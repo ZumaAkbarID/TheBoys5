@@ -30,12 +30,11 @@ const ProfileEdit = (props: Props) => {
         await axiosClient
             .put(`user/${currentUser.id}/edit`, {
                 fullName,
-                city,
+                address: city,
                 number,
                 nim,
             })
             .then(({ data }) => {
-                // console.log(data);
                 setCurrentUser(data);
             })
             .catch((error) => {
@@ -67,6 +66,7 @@ const ProfileEdit = (props: Props) => {
                 <hr />
 
                 {/* DATA DISPLAY*/}
+                <p>{error._html}</p>
                 <form
                     className="flex flex-col px-5 pb-7 w-full lg:px-10"
                     action="#"
@@ -75,40 +75,23 @@ const ProfileEdit = (props: Props) => {
                     <Input
                         type="text"
                         name="full name"
-                        value={currentUser.fullName}
                         onChange={(ev: any) => setFullName(ev.target.value)}
                     />
                     <Input
                         type="text"
                         name="nim"
-                        value={currentUser.nim}
                         onChange={(ev: any) => setNim(ev.target.value)}
                     />
                     <Input
                         type="text"
-                        name="City"
-                        value={currentUser.address}
+                        name="city"
                         onChange={(ev: any) => setCity(ev.target.value)}
                     />
                     <Input
                         type="text"
                         name="number"
-                        value={currentUser.number}
                         onChange={(ev: any) => setNumber(ev.target.value)}
                     />
-                    <Input
-                        type="email"
-                        name="email"
-                        disable
-                        value={currentUser.email}
-                    />
-                    <Input
-                        type="password"
-                        name="password"
-                        disable
-                        value={currentUser.password}
-                    />
-
                     <span className="mt-5">
                         <Button text="Save" />
                     </span>

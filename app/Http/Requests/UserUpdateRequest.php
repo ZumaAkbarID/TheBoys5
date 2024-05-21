@@ -25,7 +25,7 @@ class UserUpdateRequest extends FormRequest
             "fullName" => 'required|string|',
             "number" => 'required|numeric|unique:users,number|min:12',
             "nim" => 'required|string|unique:users,nim|min:10',
-            "city" => 'required|string',
+            "address" => 'required|string',
         ];
     }
 }

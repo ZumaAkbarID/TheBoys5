@@ -54,10 +54,11 @@ class UserController extends Controller
             $user = User::find($id);
     
             $userUpdate = $user->update([
-                'username' => $data['username'],
-                'email' => $data['email'],
+                'fullName' => $data['fullName'],
+                'nim' => $data['nim'],
+                'address' => $data['address'],
                 'number' => $data['number'],
-                'password' => Hash::make($data['password']),
+                // 'password' => Hash::make($data['password']),
             ]);
     
             return response()->json(

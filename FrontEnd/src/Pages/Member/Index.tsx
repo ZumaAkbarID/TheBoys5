@@ -54,16 +54,18 @@ const Member = () => {
                     axiosClient.post("/galon"),
                 ]);
 
-                setDefaultBalance(defaultBalanceResponse.data);
+                setDefaultBalance(
+                    defaultBalanceResponse.data.data.default_kas.value
+                );
                 setRemainingBalance(remainingBalanceResponse.data);
                 setRemainingUser(remainingUserResponse.data);
                 setCurrentBalance(currentBalanceResponse.data);
                 setGalon(galonResponse.data.galon);
 
-                // if (galon != null) {
-                //     if (currentUser.galon.current === 1)
-                //         setCurrentGalon(() => true);
-                // }
+                if (galon === null) {
+                    if (currentUser.galon.current === 1)
+                        setCurrentGalon(() => true);
+                }
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -72,11 +74,12 @@ const Member = () => {
         if (userToken) {
             fetchData();
         }
-    }, [userToken]);
+    }, []);
 
     // if (galon != null) console.log(galon[0].user_id.username);
 
     // console.log(currentGalon);
+    // console.log(defaultBalance);
     // console.log(currentUser.galon.current);
 
     return (
@@ -144,7 +147,7 @@ const Member = () => {
                                                         galon.current === 1
                                                             ? "bg-purple-600"
                                                             : "bg-gray-300"
-                                                    } text-white px-2 rounded-md lg:py-3 lg:px-5 text-nowrap`}
+                                                    } text-white px-3 py-1 rounded-md lg:py-3 lg:px-5 text-nowrap`}
                                                     key={index}
                                                 >
                                                     {galon.user_id.username}

@@ -34,8 +34,7 @@ const Profile = () => {
             setUserToken(null);
         });
     };
-    // console.log(onSelected);
-    // console.log(currentUser);
+    // console.log(currentUser.nim);
 
     return (
         <div className="bg-gray-100 h-screen relative pt-16 md:px-32 lg:ps-[11rem] lg:pe-3">
@@ -72,20 +71,22 @@ const Profile = () => {
                         {/* SIMPLE DATA */}
                         <div className="flex flex-col items-center justify-center mb-10">
                             <small className="text-gray-500 font-semibold">
-                                {currentUser.name}
+                                {currentUser.username}
                             </small>
                             <h1>
                                 {currentUser.fullName && currentUser.nim != null
-                                    ? currentUser.fullName - currentUser.nim
+                                    ? `${currentUser.fullName} - ${currentUser.nim}`
                                     : "Fill u're data first"}
                             </h1>
                             <span className="flex gap-1 justify-center items-center mb-2">
-                                {currentUser.fullName &&
+                                {currentUser.fullName != null &&
                                 currentUser.nim != null ? (
-                                    <>
-                                        <i className="bx bx-location-plus"></i>
-                                        <p>{currentUser.address}</p>
-                                    </>
+                                    // <i className="bx bx-location-plus"></i>
+                                    <p className="bx bx-location-plus my-1">
+                                        <span className="ps-2">
+                                            {currentUser.address}
+                                        </span>
+                                    </p>
                                 ) : (
                                     ""
                                 )}

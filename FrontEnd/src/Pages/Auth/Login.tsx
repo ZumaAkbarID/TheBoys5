@@ -9,12 +9,14 @@ const Login = () => {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState({ _html: "" });
+    const [isLoading, setIsLoading] = useState<Boolean>(false);
 
     const { setCurrentUser, setUserToken }: any = useStateContext();
 
     const onSubmit = async (ev: any) => {
         ev.preventDefault();
         setError({ _html: "" });
+        setIsLoading((isLoading) => !isLoading);
 
         await axiosClient
             .post("/login", {
@@ -62,7 +64,15 @@ const Login = () => {
                 />
 
                 <span className="flex flex-col w-full pt-5 justify-center items-center">
-                    <Button text="Login" />
+                    {isLoading === true ? (
+                        <Button
+                            text="Loading"
+                            className="bg-gray-300"
+                            disable={true}
+                        />
+                    ) : (
+                        <Button text="Login" />
+                    )}
                     <small>
                         Don't have an account?{" "}
                         <Link
